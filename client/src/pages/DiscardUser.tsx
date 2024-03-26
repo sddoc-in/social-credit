@@ -5,6 +5,8 @@ import { IoMdAdd } from "react-icons/io";
 import UserInterface from "../interface/NewUser";
 import { AppContext } from "../context/Context";
 import { API_URL } from "../constants/data";
+import Card from './Card';
+ 
 
 export default function Lawyers() {
 
@@ -40,31 +42,31 @@ export default function Lawyers() {
 
   return (
     <>
+      <h1 className="font-black text-3xl text-start text-black ">Discord User
+      </h1>
+      {/* <div className=" grid justify-end grid-cols-1 sm:grid-cols-1 md:grid-cols-4    w-[95%] mx-auto">
 
-      <div className=" grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4   w-[95%] mx-auto">
-        <h1 className="font-black text-3xl text-start text-black ">Discard User
-        </h1>
-        <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-4 text-white mt-4  text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center">
+        <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-2 text-white mt-4  text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center">
           <IoMdAdd className="mr-3 text-[20px]" />
-          Update user
+          Update
 
         </a>
-        <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-4  mt-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center">
+        <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-2  mt-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center">
           <IoMdAdd className="mr-3 text-[20px]" />
-          Delete user
+          Delete
 
         </a>
-        <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-4 mt-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center">
+        <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-2 mt-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center">
           <IoMdAdd className="mr-3 text-[20px]" />
-          View user
+          View
 
         </a>
-      </div>
+      </div> */}
       < div className="form-group mt-16 ml-12">
         <input
-         className={
-          "input w-1/2 font-[900]  text-[14px] border-b-{2px} text-black placeholder:font-[900] placeholder:text-[black] "
-        }
+          className={
+            "input w-1/2 font-[900] shadow-2xl  text-[14px]  text-black placeholder:font-[900] placeholder:text-[black] "
+          }
           type="text"
           aria-label="Defult"
           value={query}
@@ -74,19 +76,21 @@ export default function Lawyers() {
 
         />
         <button
-          className="ml-2 p-3 rounded-xl bg-[#1da1f2]"
+          className="ml-2 p-4 rounded-xl bg-[#1da1f2]"
           type="button" onClick={handleSearch}>
           <FaSearch />
         </button>
-        <hr className="border-b-2 border-gray-500 w-1/2"/>
+       
       </div>
-      <div className="flex flex-col md:flex-row mt-10">
+<Card />
+      
+      {/* <div className="flex flex-col md:flex-row mt-10">
         {
           data.length > 0 ? data.map((user, index) => {
             return <UserCard key={index} {...user} />;
           }) : <p>No Users</p>
         }
-      </div>
+      </div> */}
     </>
   );
 }

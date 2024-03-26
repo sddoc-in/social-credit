@@ -12,24 +12,24 @@ export default function PanelUser() {
         
     
 
-      <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center mb-2">
-        <IoMdAdd className="mr-3 text-[20px]" />
-        Create user
+      <a href="/dashboard/users/new-users" className="bg-[#002F53]  text-white text-[16px] font-[600] leading-[20px] rounded-xl flex justify-center items-center mb-2">
+        <IoMdAdd className="mr-2 text-[20px]" />
+        Create
 
         </a>
         <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center mb-2">
         <IoMdAdd className="mr-3 text-[20px]" />
-          Update user 
+          Update
 
         </a>
         <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center mb-2">
         <IoMdAdd className="mr-3 text-[20px]" />
-         Delete user
+         Delete
 
         </a>
         <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center mb-2">
         <IoMdAdd className="mr-3 text-[20px]" />
-        View user
+        View 
 
         </a>
         </div>
