@@ -6,9 +6,9 @@ import UserInterface from "../interface/NewUser";
 import { AppContext } from "../context/Context";
 import { API_URL } from "../constants/data";
 import Card from './Card';
- 
 
-export default function Lawyers() {
+
+export default function Phrase() {
 
   const { user: currentUser } = React.useContext(AppContext);
   const [data, setData] = React.useState<UserInterface[]>([]);
@@ -76,21 +76,13 @@ export default function Lawyers() {
 
         />
         <button
-          className="ml-2 p-4 rounded-xl bg-[#1da1f2]"
+          className="ml-1 p-4 rounded-xl"
           type="button" onClick={handleSearch}>
-          <FaSearch />
+           <FaSearch  className="ml-2 mt-3 text=[14px]"/> 
         </button>
-       
+
       </div>
-<Card />
-      
-      {/* <div className="flex flex-col md:flex-row mt-10">
-        {
-          data.length > 0 ? data.map((user, index) => {
-            return <UserCard key={index} {...user} />;
-          }) : <p>No Users</p>
-        }
-      </div> */}
+      <Card />
     </>
   );
 }

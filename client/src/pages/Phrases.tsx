@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 
 
+
 export default function Phrases() {
   const [query, setQuery] = useState<string>('');
   const handleSearch = () => {
@@ -35,28 +36,24 @@ export default function Phrases() {
           View Phrases
         </a>
       </div>
-
-
-
-      <div className="form-group mt-16 ml-12">
+      <div className="form-group flex mt-16 ">
+      
         <input
         className={
           "input w-1/2 font-[900] shadow-2xl  text-[14px]  text-black placeholder:font-[900] placeholder:text-[black] "
         }
-          
           type="text"
           aria-label="Defult"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-
           placeholder="Enter your search query..."
-        />
-        
-        <button
-          className="ml-2 p-4 rounded-xl bg-[#1da1f2]"
+        /> 
+        <FaSearch  className="ml-2 mt-3 text=[14px]"/> 
+        {/* <button
+          className="ml-(-32) p-4 rounded-xl bg-[#1da1f2]"
           type="button" onClick={handleSearch}>
           <FaSearch />
-        </button>
+        </button> */}
         
       </div>
 
