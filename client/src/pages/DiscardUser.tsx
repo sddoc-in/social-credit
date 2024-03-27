@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
-import UserCard from "../components/common/User";
-import { IoMdAdd } from "react-icons/io";
 import UserInterface from "../interface/NewUser";
 import { AppContext } from "../context/Context";
 import { API_URL } from "../constants/data";
 import Card from './Card';
 
 
-export default function Phrase() {
+export default function Discord() {
 
   const { user: currentUser } = React.useContext(AppContext);
   const [data, setData] = React.useState<UserInterface[]>([]);
@@ -44,44 +41,42 @@ export default function Phrase() {
     <>
       <h1 className="font-black text-3xl text-start text-black ">Discord User
       </h1>
-      {/* <div className=" grid justify-end grid-cols-1 sm:grid-cols-1 md:grid-cols-4    w-[95%] mx-auto">
-
-        <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-2 text-white mt-4  text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center">
-          <IoMdAdd className="mr-3 text-[20px]" />
-          Update
-
-        </a>
-        <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-2  mt-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center">
-          <IoMdAdd className="mr-3 text-[20px]" />
-          Delete
-
-        </a>
-        <a href="/dashboard/users/new-users" className="bg-[#002F53] ml-2 mt-4 text-white text-[16px] font-[600] leading-[20px] py-4 rounded-xl flex justify-center px-3 items-center">
-          <IoMdAdd className="mr-3 text-[20px]" />
-          View
-
-        </a>
-      </div> */}
-      < div className="form-group mt-16 ml-12">
-        <input
-          className={
-            "input w-1/2 font-[900] shadow-2xl  text-[14px]  text-black placeholder:font-[900] placeholder:text-[black] "
-          }
-          type="text"
-          aria-label="Defult"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-
-          placeholder="Enter your search query..."
-
-        />
+      <form className="flex items-center  mt-20 max-w-sm mx-auto">
+        <label htmlFor="simple-search" className="sr-only">
+          Search
+        </label>
+        <div className="relative w-full">
+          <input
+            type="text"
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Search user name..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </div>
         <button
-          className="ml-1 p-4 rounded-xl"
-          type="button" onClick={handleSearch}>
-           <FaSearch  className="ml-2 mt-3 text=[14px]"/> 
+          onClick={handleSearch}
+          type="button"
+          className="p-2.5 ms-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          <svg
+            className="w-4 h-4"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 20 20"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+            />
+          </svg>
+          <span className="sr-only">Search</span>
         </button>
-
-      </div>
+      </form>
       <Card />
     </>
   );
