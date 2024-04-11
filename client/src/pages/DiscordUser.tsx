@@ -5,10 +5,12 @@ import { API_URL } from "../constants/data";
 import InputSearch from "../components/input/InputSearch";
 import DiscordUser from "../interface/DiscordUser";
 import axios from "axios";
+import PannelUser from "../interface/Paneluser";
 
 export default function DiscordUserComponent() {
   const { user: currentUser } = React.useContext(AppContext);
   const [data, setData] = React.useState<DiscordUser[]>([]);
+  const [data2, setData2] = React.useState<PannelUser[]>([]);
   const [query, setQuery] = useState<string>("");
 
   const getAllUsers = React.useRef(() => {});
@@ -17,20 +19,37 @@ export default function DiscordUserComponent() {
     if (!currentUser.uid) {
       return;
     }
-    const params = new URLSearchParams({
-      uid: currentUser.uid,
-      session: currentUser.session,
-      access_token: currentUser.access_token,
-    });
+    try {
+      const params = new URLSearchParams({
+        uid: currentUser.uid,
+        session: currentUser.session,
+        access_token: currentUser.access_token,
+      });
 
-    const data = await axios
-      .get(API_URL + "/discord/users/all?" + params)
-      .then((res) => res.data);
-    if (data.message) {
-      alert(data.message);
-      return;
-    }
-    setData(data);
+      let data = await axios
+        .get(API_URL + "/discord/users/all?" + params)
+        .then((res) => res.data)
+        .catch((err) => {
+          alert(err.response.data.message);
+          return;
+        });
+      if (data.message) {
+        alert(data.message);
+        return;
+      }
+      setData(data);
+
+
+      data = await axios
+        .get(API_URL + "/panel-user/all?" + params)
+        .then((res) => res.data)
+        .catch((err) => {
+          alert(err.response.data.message);
+          return;
+        });
+      const users = data.filter((user: PannelUser) => user.uid !== currentUser.uid);
+      setData2(users);
+    } catch (err) {}
   };
 
   React.useEffect(() => {
@@ -56,7 +75,7 @@ export default function DiscordUserComponent() {
               user.username.toLowerCase().includes(query.toLowerCase())
             )
             .map((user) => (
-              <Card key={user.userId} {...user} />
+              <Card key={user.userId} data={user} panelUser={data2} />
             ))}
         </div>
       ) : (

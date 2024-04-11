@@ -272,6 +272,40 @@ export async function updateNotification(req: Request, res: Response) {
         await Phrasescollection.deleteOne({
           _id: new ObjectId(updatedNotification.data.phrase_id as string),
         });
+      } else if (type === "discord-points-lower") {
+        const user = await conn
+          .db("PanelUser")
+          .collection("pannelusers")
+          .findOne({ uid: uid });
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+        let currentTime = new Date().getTime();
+        if (user.last_message_time > currentTime - 60000) {
+          return res.status(400).json({
+            message: "Please wait for 1 minute before sending another request",
+          });
+        }
+        await db.collection("users").updateOne(
+          { userId: updatedNotification.data.userId },
+          {
+            $inc: {
+              total_points_gained:  updatedNotification.data.lower_points,
+            },
+          }
+        );
+
+        await conn
+          .db("PanelUser")
+          .collection("pannelusers")
+          .updateOne(
+            { uid: uid },
+            {
+              $set: {
+                last_message_time: new Date().getTime(),
+              },
+            }
+          );
       }
     } else if (status === "cancel") {
       const updatedNotification =

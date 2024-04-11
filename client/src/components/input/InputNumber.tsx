@@ -15,7 +15,7 @@ export default function InputNumber(props: Input) {
   }, [props.defValue]);
 
   return (
-    <div className={"text-start my-1 " + props.inputClassName}>
+    <div className={"text-start px-2 my-1 " + props.inputClassName}>
       {props.label && (
         <label
           htmlFor={props.name ? props.name : "name"}

@@ -15,7 +15,9 @@ export async function getdiscordUser(req: Request, res: Response) {
     //check session
     let sessionBool = validateSession(session);
     if (sessionBool) {
-      return res.status(401).json({ message: "Session invalid. Please Login Again" });
+      return res
+        .status(401)
+        .json({ message: "Session invalid. Please Login Again" });
     }
 
     let tokenErr = validateToken(access_token);
@@ -39,7 +41,7 @@ export async function getdiscordUser(req: Request, res: Response) {
       },
       {
         projection: {
-          _id:0,
+          _id: 0,
           userId: {
             $toString: "$userId",
           },
@@ -63,24 +65,30 @@ export async function getdiscordUser(req: Request, res: Response) {
 }
 
 export async function UpdateUser(req: Request, res: Response) {
-  try {
-    const username = req.params.username; //userName is provided in the request parameters
-    const { access_token, session } = req.body;
-    const updatedUser: DiscordUser = req.body;
+  const uid = req.query.uid as string;
+  const session = req.query.session as string;
+  const access_token = req.query.access_token as string;
+  const { userId, lower_points, approver_id, username } = req.body;
 
-    // Create connection to the database
-    const connect: ConnectionRes = await connectToCluster();
-    if (typeof connect.conn === "string") {
-      return res.status(500).json(connect);
+  try {
+    if (!userId || !lower_points) {
+      return res
+        .status(400)
+        .json({ message: "Please provide all the required fields" });
     }
-    const conn = connect.conn;
-    const db: Db = conn.db("DiscordUser");
-    // const pannelUser: PannelUser = req.body;
-    const usercollection: Collection = db.collection("user");
+
+    if (lower_points > 10 && approver_id === "") {
+      return res
+        .status(400)
+        .json({ message: "Please provide the approver id" });
+    }
+
     //check session
     let sessionBool = validateSession(session);
     if (sessionBool) {
-      return res.status(401).json({ message: "Session invalid. Please Login Again" });
+      return res
+        .status(401)
+        .json({ message: "Session invalid. Please Login Again" });
     }
 
     let tokenErr = validateToken(access_token);
@@ -88,15 +96,102 @@ export async function UpdateUser(req: Request, res: Response) {
       return res.status(401).json({ message: tokenErr });
     }
 
-    // update the user
-    const result = await usercollection.updateOne(
-      { username },
-      { $set: updatedUser }
-    );
-    if (result.modifiedCount === 0) {
+    // Create connection to the database
+    const connect: ConnectionRes = await connectToCluster();
+    if (typeof connect.conn === "string") {
+      return res.status(500).json(connect);
+    }
+    const conn = connect.conn;
+    const db: Db = conn.db("discord");
+    const notificationCollection: Collection = db.collection("notifications");
+    const usercollection: Collection = db.collection("users");
+
+    const user = await conn
+      .db("PanelUser")
+      .collection("pannelusers")
+      .findOne({ uid: uid });
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    return res.status(200).json({ message: "User updated successfully" });
+
+    // check for last message time must be greater than 1 min
+    let currentTime = new Date().getTime();
+    console.log(user.last_message_time, currentTime - 60000);
+    if (user.last_message_time > currentTime - 60000) {
+      return res
+        .status(400)
+        .json({
+          message: "Please wait for 1 minute before sending another request",
+        });
+    }
+
+    if (Math.abs(lower_points) < 10) {
+      await usercollection.updateOne(
+        { userId: Long.fromString(userId) },
+        {
+          $inc: {
+            total_points: parseInt(lower_points),
+          },
+        }
+      );
+
+      await conn
+        .db("PanelUser")
+        .collection("pannelusers")
+        .updateOne(
+          { uid: uid },
+          {
+            $set: {
+              last_message_time: new Date().getTime(),
+            },
+          }
+        );
+
+        return res.status(200).json({ message: "User Updated successfully." });
+    }
+
+    if (user.role === "supreme_leader") {
+      await usercollection.updateOne(
+        { userId: Long.fromString(userId) },
+        {
+          $inc: {
+            total_points: parseInt(lower_points),
+          },
+        }
+      );
+
+      await conn
+        .db("PanelUser")
+        .collection("pannelusers")
+        .updateOne(
+          { uid: uid },
+          {
+            $set: {
+              last_message_time: new Date().getTime(),
+            },
+          }
+        );
+
+      return res.status(200).json({ message: "User Updated successfully." });
+    }
+
+    await notificationCollection.insertOne({
+      uid: uid,
+      message: `Lowering point for ${username} Approval Needed`,
+      type: "discord-points-lower",
+      read: false,
+      approved: false,
+      approver: approver_id,
+      cancel: false,
+      data: {
+        userId: userId,
+        total_points: parseInt(lower_points),
+        username: username,
+      },
+      createdOn: new Date(),
+    });
+
+    return res.status(200).json({ message: "Request Send Successfully." });
   } catch (error) {
     console.error("Error updating user:", error);
     return res
@@ -121,7 +216,9 @@ export async function deleteUser(req: Request, res: Response) {
     //check session
     let sessionBool = validateSession(session);
     if (sessionBool) {
-      return res.status(401).json({ message: "Session invalid. Please Login Again" });
+      return res
+        .status(401)
+        .json({ message: "Session invalid. Please Login Again" });
     }
 
     let tokenErr = validateToken(access_token);
@@ -151,7 +248,9 @@ export async function getAllUser(req: Request, res: Response) {
     //check session
     let sessionBool = validateSession(session);
     if (sessionBool) {
-      return res.status(401).json({ message: "Session invalid. Please Login Again" });
+      return res
+        .status(401)
+        .json({ message: "Session invalid. Please Login Again" });
     }
 
     let tokenErr = validateToken(access_token);
