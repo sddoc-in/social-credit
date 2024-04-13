@@ -6,14 +6,10 @@ import MostPointsPhrase from "../components/dashboard/graphs/MostPointsPhrase";
 export default function Dashboard() {
   return (
     <>
-      <h1 className="font-black text-3xl text-start text-black">
-        Dashboard 
-      </h1>
+      <h1 className="font-black text-3xl text-start text-black">Dashboard</h1>
       <MostPointsUser />
-      <div className="flex justify-center items-center flex-col md:flex-row">
-        <MostUsedPhrase />
-        <MostPointsPhrase />
-      </div>
+      <MostUsedPhrase />
+      <MostPointsPhrase />
     </>
   );
 }

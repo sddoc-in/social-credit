@@ -64,20 +64,20 @@ export async function getTopTenMostPointsDiscordUsers(
         }
       )
       .sort({ total_points: -1 })
-      .limit(10)
+      // .limit(10)
       .toArray();
     if (!users) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    let barGraphData = users.map((user) => {
-      return {
-        total_points: user.total_points,
-        username: user.username,
-      };
-    });
+    // let barGraphData = users.map((user) => {
+    //   return {
+    //     total_points: user.total_points,
+    //     username: user.username,
+    //   };
+    // });
 
-    return res.status(200).json(barGraphData);
+    return res.status(200).json(users);
   } catch (error) {
     console.error("Error fetching user:", error);
     return res.status(500).json({ message: "Internal Server Error" });
@@ -132,11 +132,12 @@ export async function mostUsedPhrase(req: Request, res: Response) {
             _id: 0,
             phrase: 1,
             used_count: 1,
+            last_used: 1,
           },
         }
       )
       .sort({ total_points: -1 })
-      .limit(10)
+      // .limit(10)
       .toArray();
     if (!users) {
       return res.status(404).json({ message: "User not found" });
@@ -196,12 +197,13 @@ export async function mostPointedPhrase(req: Request, res: Response) {
           projection: {
             _id: 0,
             phrase: 1,
+            last_used: 1,
             total_gained_points: 1,
           },
         }
       )
       .sort({ total_gained_points: -1 })
-      .limit(10)
+      // .limit(10)
       .toArray();
 
     if (!users) {

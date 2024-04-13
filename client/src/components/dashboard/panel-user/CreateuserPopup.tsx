@@ -58,11 +58,11 @@ export default function CreateuserPopup(props: Props) {
           alert(data.message);
           return;
         });
-      if (data.message !== "PanelUser created successfully") {
+      if (data.message !== "PanelUser created successfully") { 
         alert(data.message);
         return;
       }
-      if (data.paneluser.puid) {
+      if (data.paneluser.uid) {
         alert("Panel User created successfully");
         props.onClose();
         window.location.reload();
