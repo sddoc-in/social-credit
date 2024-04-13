@@ -6,9 +6,6 @@ import path from "path";
 const app = express();
 const PORT = process.env.PORT || 80;
 
-app.get('/', (req, res) => {
-  res.send('Hello, world!'); // Sending a simple response
-});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));  
