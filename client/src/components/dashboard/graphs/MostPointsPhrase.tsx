@@ -82,15 +82,16 @@ export default function MostPointsPhrase() {
   }, [currentUser]);
 
   function downloadCSV() {
-    let csv = [];
-    csv.push("User Id,Username,Last Message time,Points");
-    data.forEach((user) => {
-      csv.push(
-        `${user.userId},${user.username},${new Date(
-          user.last_message_time
-        ).toLocaleString()},${user.total_points}`
-      );
-    });
+    const csv = [
+      ["Phrase", "Last Used", "Total Gained Points"],
+      ...data.map((user) => [
+        user.phrase,
+        user.last_used
+          ? new Date(user.last_used).toLocaleString()
+          : "Never Used",
+        user.total_gained_points,
+      ]),
+    ];
 
     const csvData = csv.join("\n");
 
@@ -123,7 +124,7 @@ export default function MostPointsPhrase() {
                   <tr>
                     <th className="border px-4 py-2">Phrase</th>
                     <th className="border px-4 py-2">Last Used</th>
-                    <th className="border px-4 py-2">Used counts</th>
+                    <th className="border px-4 py-2">Total Gained Points</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -135,7 +136,7 @@ export default function MostPointsPhrase() {
                           ? new Date(user.last_used).toLocaleString()
                           : "Never Used"}
                       </td>
-                      <td className="border px-4 py-2">{user.used_count}</td>
+                      <td className="border px-4 py-2">{user.total_gained_points}</td>
                     </tr>
                   ))}
                 </tbody>

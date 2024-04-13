@@ -83,15 +83,16 @@ export default function MostUsedPhrase() {
   }, [currentUser]);
 
   function downloadCSV() {
-    let csv = [];
-    csv.push("User Id,Username,Last Message time,Points");
-    data.forEach((user) => {
-      csv.push(
-        `${user.userId},${user.username},${new Date(
-          user.last_message_time
-        ).toLocaleString()},${user.total_points}`
-      );
-    });
+    const csv = [
+      ["Phrase", "Last Used", "Used counts"],
+      ...data.map((user) => [
+        user.phrase,
+        user.last_used
+          ? new Date(user.last_used).toLocaleString()
+          : "Never Used",
+        user.used_count,
+      ]),
+    ];
 
     const csvData = csv.join("\n");
 
