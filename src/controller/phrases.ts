@@ -69,7 +69,7 @@ export async function createPhrase(req: Request, res: Response) {
     const newPhrase: Phrases = {
       phrase_id: phrase_id,
       phrase: phrase,
-      points: points,
+      points: parseInt(points),
       createdOn: new Date(),
       createdBy: uid,
       modified: new Date(),
@@ -179,7 +179,7 @@ export async function updatePhrase(req: Request, res: Response) {
     const updatePhrase: Phrases = {
       phrase_id: existingPhrase.phrase_id,
       phrase: phrase,
-      points: points,
+      points: parseInt(points),
       modified: new Date(),
     };
 
