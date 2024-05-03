@@ -9,7 +9,7 @@ import DetailsContent from "./DetailsContent";
 export default function ViewPhraseDetails() {
   const { phrase_id } = useParams();
   const [data, setData] = React.useState<any>({});
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser,headingTheme } = React.useContext(AppContext);
 
   const getPhraseDetails = React.useRef(() => {});
 
@@ -43,7 +43,7 @@ export default function ViewPhraseDetails() {
 
   return (
     <>
-      <h1 className="font-black text-3xl text-start text-black ">Phrases</h1>
+ <h1 className={"font-black text-3xl text-start " + headingTheme}>Phrases</h1>
       <div className="my-4"></div>
       <FlexContent label="Phrase" value={data.phrase} />
       <FlexContent label="Points" value={data.points} />
@@ -57,7 +57,7 @@ export default function ViewPhraseDetails() {
       {data.data && data.data.length > 0 ? (
         <>
           <div className="my-4"></div>
-          <h1 className="font-black text-3xl text-center text-black ">
+          <h1 className={"font-black text-3xl text-center " + headingTheme}>
             Details
           </h1>
           <div className="my-4"></div>

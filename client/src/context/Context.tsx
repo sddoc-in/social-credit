@@ -29,6 +29,8 @@ export const AppProvider = ({ children }: any) => {
     cid: "",
   });
 
+  const [theme, setTheme] = React.useState<string>(localStorage.getItem("theme") || "light");
+
   const [loggedIn, setLoggedIn] = React.useState<boolean>(false);
 
   const [dialog, setDialog] = React.useState<boolean>(false);
@@ -36,6 +38,23 @@ export const AppProvider = ({ children }: any) => {
   React.useEffect(() => {
     setRouterPath(window.location.pathname.split("/").pop() || "/");
   }, []);
+
+  function changeTheme() {
+    if (theme === "light") {
+      setTheme("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      setTheme("light");
+      localStorage.setItem("theme", "light");
+    }
+  }
+
+  let socialTheme = theme === "light" ? "text-white" : "text-[#FFC107]";
+  let creditTheme = theme === "light" ? "text-[#FFC107]" : "text-red-500";
+  const sidebarTheme = theme === "light" ? "bg-[#002F53]" : "bg-gray-900";
+  const textTheme = theme === "light" ? "text-[#002F53]" : "text-gray-900";
+  const headingTheme = theme === "light" ? "text-[#002F53]" : "text-red-500";
+  const buttonTheme = theme === "light" ? "bg-[#002F53]" : "bg-[#FFC107]";
 
   function fetchUserCookies() {
     const cookies = document.cookie.split(";");
@@ -93,6 +112,7 @@ export const AppProvider = ({ children }: any) => {
   }
 
   React.useEffect(() => {
+    setTheme(localStorage.getItem("theme") || "light");
     fetchUserCookies();
   }, []);
 
@@ -112,6 +132,15 @@ export const AppProvider = ({ children }: any) => {
         setUser,
         userNew,
         setUserNew,
+        theme,
+        setTheme,
+        changeTheme,
+        socialTheme,
+        creditTheme,
+        sidebarTheme,
+        textTheme,
+        headingTheme,
+        buttonTheme
       }}
     >
       {children}

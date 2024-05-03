@@ -6,11 +6,10 @@ import axios from "axios";
 import FlexContent from "../../reusable/FlexContent";
 import DetailsContent from "./DetailsContent";
 
-
 export default function UserDetails() {
   const { userId } = useParams();
   const [data, setData] = React.useState<any>({});
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser, headingTheme } = React.useContext(AppContext);
 
   const getPhraseDetails = React.useRef(() => {});
 
@@ -21,7 +20,6 @@ export default function UserDetails() {
     if (!userId) {
       return;
     }
-
 
     const params = new URLSearchParams({
       uid: currentUser.uid,
@@ -46,7 +44,9 @@ export default function UserDetails() {
 
   return (
     <>
-      <h1 className="font-black text-3xl text-start text-black ">Discod User</h1>
+      <h1 className={"font-black text-3xl text-start " + headingTheme}>
+        Discord User
+      </h1>
       <div className="my-4"></div>
       <FlexContent label="UserName" value={data.username} />
       <FlexContent label="Points" value={data.total_points} />
@@ -59,7 +59,7 @@ export default function UserDetails() {
       {data.data && data.data.length > 0 ? (
         <>
           <div className="my-4"></div>
-          <h1 className="font-black text-3xl text-center text-black ">
+          <h1 className={"font-black text-3xl text-center " + headingTheme}>
             Details
           </h1>
           <div className="my-4"></div>

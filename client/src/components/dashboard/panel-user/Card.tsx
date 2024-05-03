@@ -1,4 +1,3 @@
-import { FaRegEye } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { FaCircleUser } from "react-icons/fa6";
 
@@ -12,7 +11,10 @@ import axios from "axios";
 import UpdateUserPopup from "./UpdateUserPopup";
 
 export default function Card(props: PannelUser) {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser,theme } = React.useContext(AppContext);
+
+
+  let boxTheme = theme === 'light'?"bg-transparent text-gray-600": "bg-[#002F53] text-white"
 
   const [open, setOpen] = React.useState(false);
   const [updatePopup, setUpdatePopup] = React.useState(false);
@@ -52,16 +54,18 @@ export default function Card(props: PannelUser) {
   }
   return (
     <>
-      <section className="text-gray-600 body-font mt-8 ">
-        <div className="border border-gray-200 p-5 rounded-lg shadow-xl ">
+      <section className=" body-font mt-8 ">
+        <div className={"border border-gray-200 p-5 rounded-lg shadow-xl "+boxTheme}>
           <div className="flex justify-start items-start mb-4 w-11/12">
             <div className="p-1 rounded-full bg-indigo-100 text-indigo-500 ">
               <FaCircleUser className="text-3xl" />
             </div>
             <div>
               <div className="flex justify-start items-center ml-3">
-                <p>{props.name} -</p>
-                <p className="ml-1">{props.username} </p>
+                <p>{props.name} </p>
+              </div>
+              <div className="flex justify-start items-center ml-3">
+                <p >{props.username} </p>
               </div>
               <div className="ml-3 text-ellipsis w-full">
                 <p>{props.email} </p>
@@ -70,9 +74,9 @@ export default function Card(props: PannelUser) {
           </div>
           <hr className="w-full h-1 " />
           <div className="flex justify-evenly items-center mt-2">
-            <a href={"/dashboard/panel-user/details/view/" + props.uid}>
+            {/* <a href={"/dashboard/panel-user/details/view/" + props.uid}>
               <FaRegEye className="text-2xl mt-1.5" />
-            </a>
+            </a> */}
             {/* add pop for decreasing points */}
             <CiEdit
               onClick={() => setUpdatePopup(true)}

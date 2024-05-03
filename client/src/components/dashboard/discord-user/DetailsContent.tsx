@@ -12,7 +12,7 @@ interface Props {
 export default function DetailsContent(props: Props) {
   return (
     <>
-      <section className="text-gray-600 body-font ">
+      <section className="body-font ">
         <div className="border border-gray-200 p-5 rounded-lg shadow-xl ">
           <div className="flex justify-start items-center w-full mb-4">
             <div className="flex flex-col w-full">
@@ -43,7 +43,7 @@ export default function DetailsContent(props: Props) {
               />
               <FlexContent
                 label="Added Points"
-                value={props.added_points.toString()}
+                value={props.added_points === undefined?"0": props.added_points.toString()}
                 classes="w-[100%!important]"
               />
               <FlexContent

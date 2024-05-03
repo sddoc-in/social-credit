@@ -5,7 +5,7 @@ import { API_URL } from "../constants/data";
 import Card from "../components/dashboard/notifications/Card";
 
 export default function Notifications() {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser,headingTheme } = React.useContext(AppContext);
 
   const [approverNotifications, setApproverNotifications] = React.useState([]);
   const [readApproverNotifications, setReadApproverNotifications] =
@@ -65,12 +65,12 @@ export default function Notifications() {
 
   return (
     <>
-      <h1 className="text-3xl text-start text-black ">
+    <h1 className={"font-black text-3xl text-start "+headingTheme}>
         Notifications
       </h1>
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 w-11/12 mx-auto my-4">
         <div>
-          <h2 className="text-xl text-start text-black ">
+          <h2 className="text-xl text-start">
             User Notifications
           </h2>
           <div className="max-h-[400px] overflow-y-auto">
@@ -84,7 +84,7 @@ export default function Notifications() {
           </div>
         </div>
         <div>
-          <h2 className="text-xl text-start text-black ">
+          <h2 className="text-xl text-start">
             Approve Notifications
           </h2>
           <div className="max-h-[400px] overflow-y-auto">
@@ -98,7 +98,7 @@ export default function Notifications() {
           </div>
         </div>
         <div>
-          <h2 className="text-xl text-start text-black ">
+          <h2 className="text-xl text-start">
             Read Notifications
           </h2>
           <div className="max-h-[400px] overflow-y-auto">
@@ -112,7 +112,7 @@ export default function Notifications() {
           </div>
         </div>
         <div>
-          <h2 className="text-xl text-start text-black ">
+          <h2 className="text-xl text-start">
             Read Approve Notifications
           </h2>
           <div className="max-h-[400px] overflow-y-auto">

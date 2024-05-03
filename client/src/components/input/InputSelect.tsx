@@ -87,7 +87,7 @@ export default function InputSelect(props: Input) {
           )}
 
           <div
-            className={`absolute z-50 mt-2 top-full left-0 w-full bg-white rounded-lg shadow-md border border-gray-200 h-fit  max-h-[200px] overflow-y-scroll scroll-hide ${
+            className={`absolute z-50 mt-2 top-full left-0 w-full bg-white rounded-lg shadow-md border border-gray-200 h-fit  max-h-[200px] overflow-y-auto scroll-hide ${
               show ? "block" : "hidden"
             }`}
           >
@@ -95,7 +95,7 @@ export default function InputSelect(props: Input) {
               <div
                 key={i}
                 onClick={() => onCountryClick(data)}
-                className="flex items-center justify-between text-black px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-[#004D3D] hover:text-white  transition-all"
+                className="flex items-center justify-between text-black px-4 py-2 border-b border-gray-200 cursor-pointer hover:bg-[#002F53] hover:text-white  transition-all"
               >
                 <p className="text-[16px]  country-flag ">{data.name}</p>
               </div>

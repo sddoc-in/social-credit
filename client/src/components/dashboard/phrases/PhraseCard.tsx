@@ -16,6 +16,12 @@ export default function PhraseCard(props: {
   phrase: Phrases;
   approver: PannelUser[];
 }) {
+
+  
+  const {theme} = React.useContext(AppContext)
+
+  let boxTheme = theme === 'light'?"bg-transparent ": "bg-[#002F53] text-white"
+
   const [open, setOpen] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
   const [approver, setApprover] = React.useState<string>("");
@@ -73,7 +79,7 @@ export default function PhraseCard(props: {
 
   return (
     <>
-      <section className="text-gray-600 body-font mt-8 ">
+      <section className={"text-gray-600 body-font mt-8  rounded-lg "+boxTheme}>
         <div className="border border-gray-200 p-5 rounded-lg shadow-xl ">
           <div className="flex justify-start items-center w-full mb-4">
             <div className="p-1 rounded-full bg-indigo-100 text-indigo-500 ">

@@ -9,7 +9,7 @@ import Card from "../components/dashboard/panel-user/Card";
 
 export default function PanelUser() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser,headingTheme,buttonTheme } = React.useContext(AppContext);
   const [data, setData] = React.useState<PannelUser[]>([]);
   const getAllUsers = React.useRef(() => {});
 
@@ -49,9 +49,9 @@ export default function PanelUser() {
 
   return (
     <>
-      <h1 className="font-black text-3xl text-start text-black ">Panel</h1>
+      <h1 className={"font-black text-3xl text-start "+headingTheme}>Panel</h1>
       <div
-        className="bg-[#002F53] text-white text-[16px] font-[600] leading-[20px] rounded-md mt-4 flex justify-center items-center mb-2 w-fit px-4 py-2 cursor-pointer"
+        className={" text-white text-[16px] font-[600] leading-[20px] rounded-md mt-4 flex justify-center items-center mb-2 w-fit px-4 py-2 cursor-pointer " + buttonTheme}
         onClick={openPopup}
       >
         <IoMdAdd className="mr-2 text-[20px] " />

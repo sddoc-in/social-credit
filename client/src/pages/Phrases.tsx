@@ -10,7 +10,7 @@ import CreatePhrase from "../components/dashboard/phrases/CreatePhrase";
 import PannelUser from "../interface/Paneluser";
 
 export default function PhrasesComponent() {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser,headingTheme,buttonTheme } = React.useContext(AppContext);
   const [data, setData] = React.useState<Phrases[]>([]);
   const [data2, setData2] = React.useState<PannelUser[]>([]);
 
@@ -70,9 +70,9 @@ export default function PhrasesComponent() {
 
   return (
     <>
-      <h1 className="font-black text-3xl text-start text-black ">Phrases</h1>
+       <h1 className={"font-black text-3xl text-start "+headingTheme}>Phrases</h1>
       <div
-        className="bg-[#002F53] text-white text-[16px] font-[600] leading-[20px] rounded-md mt-4 flex justify-center items-center mb-2 w-fit px-4 py-2 cursor-pointer"
+        className={" text-white text-[16px] font-[600] leading-[20px] rounded-md mt-4 flex justify-center items-center mb-2 w-fit px-4 py-2 cursor-pointer "+buttonTheme}
         onClick={() => setIsPopupOpen(true)}
       >
         <IoMdAdd className="mr-2 text-[20px] " />

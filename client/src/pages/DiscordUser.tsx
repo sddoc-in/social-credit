@@ -8,7 +8,7 @@ import axios from "axios";
 import PannelUser from "../interface/Paneluser";
 
 export default function DiscordUserComponent() {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser,headingTheme } = React.useContext(AppContext);
   const [data, setData] = React.useState<DiscordUser[]>([]);
   const [data2, setData2] = React.useState<PannelUser[]>([]);
   const [query, setQuery] = useState<string>("");
@@ -58,7 +58,7 @@ export default function DiscordUserComponent() {
 
   return (
     <>
-      <h1 className="font-black text-3xl text-start text-black ">
+    <h1 className={"font-black text-3xl text-start "+headingTheme}>
         Discord User
       </h1>
       <InputSearch

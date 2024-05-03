@@ -14,7 +14,7 @@ export default function DetailsContent(props: Props) {
   return (
     <>
       <a href={"/dashboard/user/discord/details/view/" + props.userId}>
-        <section className="text-gray-600 body-font ">
+        <section className="body-font ">
           <div className="border border-gray-200 p-5 rounded-lg shadow-xl ">
             <div className="flex justify-start items-center w-full mb-4">
               <div className="flex flex-col w-full">
