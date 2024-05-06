@@ -3,9 +3,19 @@ import { AppContext } from "../context/Context";
 import axios from "axios";
 import { API_URL } from "../constants/data";
 import Card from "../components/dashboard/notifications/Card";
+import Loading from "../components/loader/Loading";
 
 export default function Notifications() {
   const { user: currentUser } = React.useContext(AppContext);
+  const [load, setLoad ] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoad(false);
+    }, 3000);
+  
+    return () => clearTimeout(timer);
+  }, []);
 
   const [approverNotifications, setApproverNotifications] = React.useState([]);
   const [readApproverNotifications, setReadApproverNotifications] =
@@ -30,13 +40,14 @@ export default function Notifications() {
     });
 
     try {
+      setLoad(true);
       const data = await axios
         .get(API_URL + `/notifications/user?` + params)
         .then((res) => res.data)
         .catch((err) => {
           alert(err.response.data.message);
         });
-
+      setLoad(false);
       const readData = data.filter((notification: any) => notification.read);
       setReadUserNotifications(readData);
 
@@ -45,13 +56,14 @@ export default function Notifications() {
     } catch (error) {}
 
     try {
+      setLoad(true);
       const data = await axios
         .get(API_URL + `/notifications/approver?` + approverParams)
         .then((res) => res.data)
         .catch((err) => {
           alert(err.response.data.message);
         });
-
+       setLoad(false);
       const readData = data.filter((notification: any) => notification.read);
       setReadApproverNotifications(readData);
 
@@ -65,6 +77,7 @@ export default function Notifications() {
 
   return (
     <>
+    {load && <Loading />}
       <h1 className="text-3xl text-start text-black ">
         Notifications
       </h1>

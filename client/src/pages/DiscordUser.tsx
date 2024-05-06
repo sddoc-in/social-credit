@@ -6,12 +6,23 @@ import InputSearch from "../components/input/InputSearch";
 import DiscordUser from "../interface/DiscordUser";
 import axios from "axios";
 import PannelUser from "../interface/Paneluser";
+import Loading from "../components/loader/Loading";
 
 export default function DiscordUserComponent() {
   const { user: currentUser } = React.useContext(AppContext);
   const [data, setData] = React.useState<DiscordUser[]>([]);
   const [data2, setData2] = React.useState<PannelUser[]>([]);
   const [query, setQuery] = useState<string>("");
+
+  const [load, setLoad ] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoad(false);
+    }, 3000);
+  
+    return () => clearTimeout(timer);
+  }, []);
 
   const getAllUsers = React.useRef(() => {});
 
@@ -32,6 +43,7 @@ export default function DiscordUserComponent() {
         .catch((err) => {
           alert(err.response.data.message);
           return;
+          
         });
       if (data.message) {
         alert(data.message);
@@ -39,7 +51,7 @@ export default function DiscordUserComponent() {
       }
       setData(data);
 
-
+      setLoad(true);
       data = await axios
         .get(API_URL + "/panel-user/all?" + params)
         .then((res) => res.data)
@@ -47,6 +59,7 @@ export default function DiscordUserComponent() {
           alert(err.response.data.message);
           return;
         });
+        setLoad(false);
       const users = data.filter((user: PannelUser) => user.uid !== currentUser.uid);
       setData2(users);
     } catch (err) {}
@@ -58,6 +71,7 @@ export default function DiscordUserComponent() {
 
   return (
     <>
+    {load && <Loading />}
       <h1 className="font-black text-3xl text-start text-black ">
         Discord User
       </h1>

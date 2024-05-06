@@ -8,6 +8,7 @@ import PhraseCard from "../components/dashboard/phrases/PhraseCard";
 import { IoMdAdd } from "react-icons/io";
 import CreatePhrase from "../components/dashboard/phrases/CreatePhrase";
 import PannelUser from "../interface/Paneluser";
+import Loading from "../components/loader/Loading";
 
 export default function PhrasesComponent() {
   const { user: currentUser } = React.useContext(AppContext);
@@ -16,6 +17,15 @@ export default function PhrasesComponent() {
 
   const [query, setQuery] = useState<string>("");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+const [load, setLoad ] = React.useState(true);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoad(false);
+    }, 3000);
+  
+    return () => clearTimeout(timer);
+  }, []);
+
 
   const getAllUsers = React.useRef(() => {});
   const getAllPhrases = React.useRef(() => {});
@@ -30,6 +40,7 @@ export default function PhrasesComponent() {
       access_token: currentUser.access_token,
     });
 
+    setLoad(true)
     const data = await axios
       .get(API_URL + "/phrases/all?" + params)
       .then((res) => res.data);
@@ -37,6 +48,7 @@ export default function PhrasesComponent() {
       alert(data.message);
       return;
     }
+    setLoad(false)
     setData(data);
   };
 
@@ -51,6 +63,7 @@ export default function PhrasesComponent() {
         access_token: currentUser.access_token,
       });
 
+      setLoad(true)
       const data = await axios
         .get(API_URL + "/panel-user/all?" + params)
         .then((res) => res.data)
@@ -59,6 +72,7 @@ export default function PhrasesComponent() {
           return;
         });
       const users = data.filter((user: PannelUser) => user.uid !== currentUser.uid);
+      setLoad(false)
       setData2(users);
     } catch (err) {}
   };
@@ -70,6 +84,7 @@ export default function PhrasesComponent() {
 
   return (
     <>
+    {load && <Loading />}
       <h1 className="font-black text-3xl text-start text-black ">Phrases</h1>
       <div
         className="bg-[#002F53] text-white text-[16px] font-[600] leading-[20px] rounded-md mt-4 flex justify-center items-center mb-2 w-fit px-4 py-2 cursor-pointer"

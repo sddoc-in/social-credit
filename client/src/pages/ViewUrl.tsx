@@ -4,9 +4,20 @@ import { AppContext } from "../context/Context";
 import { API_URL } from "../constants/data";
 import { FaCopy } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import Loading from "../components/loader/Loading";
 
 export default function ViewURL() {
   const { user: currentUser } = React.useContext(AppContext);
+
+  const [load, setLoad ] = React.useState(true);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoad(false);
+    }, 3000);
+  
+    return () => clearTimeout(timer);
+  }, []);
+
 
   const [urls, setUrls] = React.useState<any>([]);
 
@@ -34,7 +45,8 @@ export default function ViewURL() {
     params.append("uid", currentUser.uid);
     params.append("session", currentUser.session);
     params.append("token", currentUser.access_token);
-
+    
+    setLoad(true)
     const response = await fetch(`${API_URL}/generate-url?${params}`);
     const data = await response.json();
     if (data.url) {
@@ -42,6 +54,7 @@ export default function ViewURL() {
       alert("Url generated");
     }
   }
+  setLoad(false)
 
   async function deleteUrl(url: string) {
     if (!currentUser.uid) {
@@ -53,6 +66,7 @@ export default function ViewURL() {
     params.append("token", currentUser.access_token);
     params.append("url", url);
 
+    setLoad(true)
     const response = await fetch(`${API_URL}/delete-url?${params}`);
     const data = await response.json();
     if (data.message) {
@@ -60,7 +74,8 @@ export default function ViewURL() {
       setUrls(urls.filter((u: any) => u.url !== url));
     }
   }
-
+  setLoad(false)
+  
   function onCopyClick(url: string) {
     navigator.clipboard.writeText("http://localhost:3000/url/" + url);
   }
@@ -71,6 +86,7 @@ export default function ViewURL() {
 
   return (
     <>
+    {load && <Loading />}
       <div className=" mt-4 md:mt-7 w-[95%] mx-auto">
         <div>
           <h1 className="font-black text-3xl text-start text-black my-2">

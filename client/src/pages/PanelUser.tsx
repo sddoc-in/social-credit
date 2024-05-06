@@ -6,12 +6,22 @@ import CreateuserPopup from "../components/dashboard/panel-user/CreateuserPopup"
 import { API_URL } from "../constants/data";
 import axios from "axios";
 import Card from "../components/dashboard/panel-user/Card";
+import Loading from "../components/loader/Loading";
 
 export default function PanelUser() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const { user: currentUser } = React.useContext(AppContext);
   const [data, setData] = React.useState<PannelUser[]>([]);
   const getAllUsers = React.useRef(() => {});
+  const [load, setLoad ] = React.useState(true);
+
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoad(false);
+    }, 3000);
+  
+    return () => clearTimeout(timer);
+  }, []);
 
   const openPopup = () => {
     setIsPopupOpen(true);
@@ -49,6 +59,7 @@ export default function PanelUser() {
 
   return (
     <>
+    {load && <Loading />}
       <h1 className="font-black text-3xl text-start text-black ">Panel</h1>
       <div
         className="bg-[#002F53] text-white text-[16px] font-[600] leading-[20px] rounded-md mt-4 flex justify-center items-center mb-2 w-fit px-4 py-2 cursor-pointer"

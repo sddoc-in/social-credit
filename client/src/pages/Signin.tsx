@@ -7,9 +7,19 @@ import { AppContext } from "../context/Context";
 import { API_URL } from "../constants/data";
 import InputName from "../components/input/InputName";
 import InputPass from "../components/input/InputPass";
+import Loading from "../components/loader/Loading";
 
 export default function Signin() {
   const { setCookies,loggedIn } = React.useContext(AppContext);
+  const [load, setLoad ] = React.useState(true);
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoad(false);
+    }, 3000);
+  
+    return () => clearTimeout(timer);
+  }, []);
+
 
   React.useEffect(() => {
     if(localStorage.getItem("user")){
@@ -51,6 +61,8 @@ export default function Signin() {
   }
 
   return (
+    <>
+    {load && <Loading />}
     <div className="relative w-full h-auto md:h-[100vh] overflow-hidden">
       <SkyBidder />
       <div className="w-full md:w-[65%] lg:w-[75%] pb-6 md:absolute top-[30%] md:top-0 right-0 bg-white h-full z-20 rounded-t-3xl lg:rounded-t-[unset] lg:rounded-l-[1.5rem!important] block pt-20 md:pt-0 md:flex items-center justify-center">
@@ -84,5 +96,6 @@ export default function Signin() {
         </div>
       </div>
     </div>
+    </>
   );
 }
