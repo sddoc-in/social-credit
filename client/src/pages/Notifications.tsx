@@ -6,6 +6,7 @@ import Card from "../components/dashboard/notifications/Card";
 import Loading from "../components/loader/Loading";
 
 export default function Notifications() {
+<<<<<<< HEAD
   const { user: currentUser } = React.useContext(AppContext);
   const [load, setLoad ] = React.useState(true);
 
@@ -16,6 +17,9 @@ export default function Notifications() {
   
     return () => clearTimeout(timer);
   }, []);
+=======
+  const { user: currentUser,headingTheme } = React.useContext(AppContext);
+>>>>>>> d7795ac219f39910ea576e2a78137131ba6ab739
 
   const [approverNotifications, setApproverNotifications] = React.useState([]);
   const [readApproverNotifications, setReadApproverNotifications] =
@@ -77,13 +81,17 @@ export default function Notifications() {
 
   return (
     <>
+<<<<<<< HEAD
     {load && <Loading />}
       <h1 className="text-3xl text-start text-black ">
+=======
+    <h1 className={"font-black text-3xl text-start "+headingTheme}>
+>>>>>>> d7795ac219f39910ea576e2a78137131ba6ab739
         Notifications
       </h1>
       <div className="grid md:grid-cols-2 grid-cols-1 gap-4 w-11/12 mx-auto my-4">
         <div>
-          <h2 className="text-xl text-start text-black ">
+          <h2 className="text-xl text-start">
             User Notifications
           </h2>
           <div className="max-h-[400px] overflow-y-auto">
@@ -97,7 +105,7 @@ export default function Notifications() {
           </div>
         </div>
         <div>
-          <h2 className="text-xl text-start text-black ">
+          <h2 className="text-xl text-start">
             Approve Notifications
           </h2>
           <div className="max-h-[400px] overflow-y-auto">
@@ -111,7 +119,7 @@ export default function Notifications() {
           </div>
         </div>
         <div>
-          <h2 className="text-xl text-start text-black ">
+          <h2 className="text-xl text-start">
             Read Notifications
           </h2>
           <div className="max-h-[400px] overflow-y-auto">
@@ -125,7 +133,7 @@ export default function Notifications() {
           </div>
         </div>
         <div>
-          <h2 className="text-xl text-start text-black ">
+          <h2 className="text-xl text-start">
             Read Approve Notifications
           </h2>
           <div className="max-h-[400px] overflow-y-auto">

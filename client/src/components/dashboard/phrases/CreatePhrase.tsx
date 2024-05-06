@@ -25,9 +25,14 @@ interface Props {
 }
 
 export default function CreatePhrase(props: Props) {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser, theme } = React.useContext(AppContext);
   const [panelUser, setPanelUser] = React.useState<Phrases>({} as Phrases);
   const [approver, setApprover] = React.useState<string>("");
+
+  let boxTheme =
+    theme === "light"
+      ? "bg-transparent "
+      : "bg-[#002F53!important] text-[white!important]";
 
   async function onCreate() {
     if (!currentUser.uid) {
@@ -81,7 +86,7 @@ export default function CreatePhrase(props: Props) {
     <>
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent className={boxTheme}>
           <ModalHeader>Create Panel User</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -126,7 +131,7 @@ export default function CreatePhrase(props: Props) {
             <Button
               variant="ghost"
               onClick={onCreate}
-              className="bg-[#002F53] text-[white!important] capitalize hover:bg-[#002F53!important] "
+              className="bg-[#002F53] text-[white!important] capitalize hover:bg-[#002F53!important] shadow-lg "
             >
               {currentUser.role !== "supreme_leader"
                 ? "Send Approval"

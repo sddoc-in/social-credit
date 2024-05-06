@@ -1,8 +1,12 @@
 import React from "react";
 import Input from "../../interface/Input";
 import { IoIosSearch } from "react-icons/io";
+import { AppContext } from "../../context/Context";
 
 export default function InputSearch(props: Input) {
+  
+  const {buttonTheme} = React.useContext(AppContext)
+
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     if (props.onChangeHandler) {
       props.onChangeHandler(e);
@@ -34,11 +38,11 @@ export default function InputSearch(props: Input) {
           placeholder={props.placeholder ? props.placeholder : `Enter Name`}
           onChange={(e) => onChange(e)}
           className={
-            "input border-none  text-[14px] text-black w-[95%] font-medium disabled:bg-white disabled:text-black placeholder:font-normal placeholder:text-[#000] bg-white focus:outline-none my-[unset!important]"
+            "input border-none rounded-r-none text-[14px] text-black w-[95%] font-medium disabled:bg-white disabled:text-black placeholder:font-normal placeholder:text-[#000] bg-white focus:outline-none my-[unset!important]"
           }
           style={{ borderColor: "rgb(189, 189, 189)" }}
         />
-        <div className="bg-[#002F53] text-white p-[14px] rounded-r-lg">
+        <div className={"text-white p-[14px] rounded-r-lg "+buttonTheme}>
           <IoIosSearch className="text-[20px]" />
         </div>
       </div>

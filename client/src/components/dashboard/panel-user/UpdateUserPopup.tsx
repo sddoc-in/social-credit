@@ -27,8 +27,11 @@ interface Props {
 }
 
 export default function UpdateUserPopup(props: Props) {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser ,theme} = React.useContext(AppContext);
   const [panelUser, setPanelUser] = React.useState<PannelUser>(props.data);
+  
+  let boxTheme =
+  theme === "light" ? "bg-transparent " : "bg-[#002F53!important] text-[white!important]";
 
   const [error, setError] = React.useState<UserErrorInterface>(
     {} as UserErrorInterface
@@ -98,7 +101,7 @@ export default function UpdateUserPopup(props: Props) {
     <>
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent className={boxTheme}>
           <ModalHeader>Create Panel User</ModalHeader>
           <ModalCloseButton />
           <ModalBody>

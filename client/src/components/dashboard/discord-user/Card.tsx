@@ -1,5 +1,4 @@
 import { FaRegEye } from "react-icons/fa";
-import { MdDeleteForever } from "react-icons/md";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
 
@@ -9,7 +8,13 @@ import React from "react";
 import Delete from "../../reusable/Delete";
 import UpdateUserPopup from "./UpdateUserPopup";
 import PannelUser from "../../../interface/Paneluser";
+import { AppContext } from "../../../context/Context";
 export default function Card(props: {data:DiscordUser,panelUser:PannelUser[]}) {
+
+  const {theme} = React.useContext(AppContext)
+
+  let boxTheme = theme === 'light'?"bg-transparent ": "bg-[#002F53] text-white"
+
   const [open, setOpen] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
 
@@ -17,12 +22,9 @@ export default function Card(props: {data:DiscordUser,panelUser:PannelUser[]}) {
     console.log(data);
   }
 
-  function openModal() {
-    setOpen(true);
-  }
   return (
     <>
-      <section className="text-gray-600 body-font mt-8 ">
+      <section className={"text-gray-600 body-font mt-8  rounded-lg "+boxTheme}>
         <div className="border border-gray-200 p-5 rounded-lg shadow-xl ">
           <div className="flex justify-start items-center w-full mb-4">
             <div className="p-1 rounded-full bg-indigo-100 text-indigo-500 ">
@@ -63,7 +65,7 @@ export default function Card(props: {data:DiscordUser,panelUser:PannelUser[]}) {
       />
       <UpdateUserPopup
         isOpen={edit}
-        onClose={() => () => setEdit(true)}
+        onClose={() => setEdit(false)}
         data={props.data}
         panelUser={props.panelUser}
       />

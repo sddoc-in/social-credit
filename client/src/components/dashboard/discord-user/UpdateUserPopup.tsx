@@ -15,7 +15,6 @@ import PannelUser from "../../../interface/Paneluser";
 import { AppContext } from "../../../context/Context";
 import axios from "axios";
 import { API_URL } from "../../../constants/data";
-import UserErrorInterface from "../../../interface/Error";
 import DiscordUser from "../../../interface/DiscordUser";
 import InputNumber from "../../input/InputNumber";
 
@@ -27,7 +26,11 @@ interface Props {
 }
 
 export default function UpdateUserPopup(props: Props) {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser, theme } = React.useContext(AppContext);
+
+  let boxTheme =
+    theme === "light" ? "bg-transparent " : "bg-[#002F53!important] text-[white!important]";
+
   const [panelUser, setPanelUser] = React.useState({
     username: props.data.username,
     lower_points: 0,
@@ -36,15 +39,7 @@ export default function UpdateUserPopup(props: Props) {
   const [approver, setApprover] = React.useState<string>("" as string);
   const [approverEnabled, setApproverEnabled] = React.useState<boolean>(false);
 
-  const [error, setError] = React.useState<UserErrorInterface>(
-    {} as UserErrorInterface
-  );
-
   async function onCreate() {
-
-
-
-
     if (!currentUser.uid) {
       return;
     }
@@ -81,8 +76,6 @@ export default function UpdateUserPopup(props: Props) {
     } catch (err) {}
   }
 
-
-
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setPanelUser({
       ...panelUser,
@@ -92,10 +85,9 @@ export default function UpdateUserPopup(props: Props) {
     if (e.target.name === "lower_points") {
       if (Math.abs(parseInt(e.target.value)) >= 10) {
         setApproverEnabled(true);
-      }
-      else {
+      } else {
         setApproverEnabled(false);
-      } 
+      }
     }
   }
 
@@ -107,7 +99,7 @@ export default function UpdateUserPopup(props: Props) {
     <>
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent className={boxTheme}>
           <ModalHeader>Update Points</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -118,9 +110,6 @@ export default function UpdateUserPopup(props: Props) {
               placeholder="Name"
               inputClassName="w-full"
               onChangeHandler={onChange}
-              error={
-                error.hasError && error.field === "name" ? error.message : ""
-              }
             />
             <InputNumber
               name="lower_points"
@@ -128,14 +117,9 @@ export default function UpdateUserPopup(props: Props) {
               placeholder="Lower Points"
               inputClassName="w-full"
               onChangeHandler={onChange}
-              error={
-                error.hasError && error.field === "lower_points"
-                  ? error.message
-                  : ""
-              }
             />
 
-            {(currentUser.role !== "supreme_leader"  || approverEnabled) && (
+            {(currentUser.role !== "supreme_leader" || approverEnabled) && (
               <InputSelect
                 name="approver_id"
                 selectArray={props.panelUser.map((user) => {
@@ -160,7 +144,7 @@ export default function UpdateUserPopup(props: Props) {
             <Button
               variant="ghost"
               onClick={onCreate}
-              className="bg-[#002F53] text-[white!important] capitalize hover:bg-[#002F53!important] "
+              className="bg-[#002F53] text-[white!important] capitalize hover:bg-[#002F53!important] shadow-lg"
             >
               Update
             </Button>

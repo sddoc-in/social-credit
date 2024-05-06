@@ -27,7 +27,10 @@ interface Props {
 }
 
 export default function CreateuserPopup(props: Props) {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser ,theme} = React.useContext(AppContext);
+  let boxTheme =
+  theme === "light" ? "bg-transparent " : "bg-[#002F53!important] text-[white!important]";
+
 
   const [error, setError] = React.useState<UserErrorInterface>(
     {} as UserErrorInterface
@@ -101,7 +104,7 @@ export default function CreateuserPopup(props: Props) {
     <>
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent className={boxTheme}>
           <ModalHeader>Create Panel User</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -164,13 +167,15 @@ export default function CreateuserPopup(props: Props) {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
+            <Button colorScheme="blue" mr={3}
+            onClick={props.onClose}
+            >
               Close
             </Button>
             <Button
               variant="ghost"
               onClick={onCreate}
-              className="bg-[#002F53] text-[white!important] capitalize hover:bg-[#002F53!important] "
+              className="bg-[#002F53] text-[white!important] capitalize hover:bg-[#002F53!important] shadow-lg"
             >
               Create
             </Button>

@@ -10,8 +10,8 @@ export default function FlexContent(props: Props) {
   return (
     <>
       <div className={"flex justify-between items-center md:flex-row flex-col md:w-1/2 w-11/12 "+props.classes}>
-        <p className="font-light text-start text-black">{props.label} </p>{" "}
-        <p className="font-light text-start text-black ">{props.value}</p>
+        <p className="font-light text-start">{props.label} </p>{" "}
+        <p className="font-light text-start ">{props.value}</p>
       </div>
     </>
   );

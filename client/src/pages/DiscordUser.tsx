@@ -9,7 +9,7 @@ import PannelUser from "../interface/Paneluser";
 import Loading from "../components/loader/Loading";
 
 export default function DiscordUserComponent() {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser,headingTheme } = React.useContext(AppContext);
   const [data, setData] = React.useState<DiscordUser[]>([]);
   const [data2, setData2] = React.useState<PannelUser[]>([]);
   const [query, setQuery] = useState<string>("");
@@ -71,8 +71,12 @@ export default function DiscordUserComponent() {
 
   return (
     <>
+<<<<<<< HEAD
     {load && <Loading />}
       <h1 className="font-black text-3xl text-start text-black ">
+=======
+    <h1 className={"font-black text-3xl text-start "+headingTheme}>
+>>>>>>> d7795ac219f39910ea576e2a78137131ba6ab739
         Discord User
       </h1>
       <InputSearch

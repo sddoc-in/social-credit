@@ -25,7 +25,13 @@ interface Props {
 }
 
 export default function Delete(props: Props) {
-  const { user: currentUser } = React.useContext(AppContext);
+  const { user: currentUser,theme } = React.useContext(AppContext);
+
+  let boxTheme =
+    theme === "light"
+      ? "bg-transparent "
+      : "bg-[#002F53!important] text-[white!important]";
+
 
   function onDelete() {
     props.onDelete(props.data);
@@ -35,7 +41,7 @@ export default function Delete(props: Props) {
     <>
       <Modal isOpen={props.isOpen} onClose={props.onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent className={boxTheme}>
           <ModalHeader>Delete Phrase</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
@@ -64,7 +70,7 @@ export default function Delete(props: Props) {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
+            <Button colorScheme="blue" mr={3} onClick={props.onClose}>
               Close
             </Button>
             <Button variant="ghost" onClick={onDelete} colorScheme="red">
