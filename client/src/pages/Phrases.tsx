@@ -84,12 +84,8 @@ const [load, setLoad ] = React.useState(true);
 
   return (
     <>
-<<<<<<< HEAD
     {load && <Loading />}
       <h1 className="font-black text-3xl text-start text-black ">Phrases</h1>
-=======
-       <h1 className={"font-black text-3xl text-start "+headingTheme}>Phrases</h1>
->>>>>>> d7795ac219f39910ea576e2a78137131ba6ab739
       <div
         className={" text-white text-[16px] font-[600] leading-[20px] rounded-md mt-4 flex justify-center items-center mb-2 w-fit px-4 py-2 cursor-pointer "+buttonTheme}
         onClick={() => setIsPopupOpen(true)}

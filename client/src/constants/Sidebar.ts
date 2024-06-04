@@ -12,6 +12,8 @@ import ViewPhraseDetails from "../components/dashboard/phrases/ViewPhraseDetails
 import UserDetails from "../components/dashboard/discord-user/UserDetails";
 import Notifications from "../pages/Notifications";
 import Logout from "../pages/Logout";
+import { title } from "process";
+import Wordpharses from "../pages/Wordpharses"
 
 export const SidebarData = [
   {
@@ -56,6 +58,13 @@ export const SidebarData = [
     shortPath: "/logout",
     Icon: CiLogout,
     Element: Logout,
+  },
+  {
+    title:"Wordpharses",
+    path:"/dashboard/wordphrases",
+    shortPath:"/wordphrases",
+    Icon:GoProjectTemplate,
+    Element: Wordpharses,
   }
 ];
 

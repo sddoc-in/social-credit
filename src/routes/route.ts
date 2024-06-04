@@ -6,6 +6,7 @@ import {createPannelUser,deletePannelUser,updatePannelUser,getAllPannelUsers} fr
 import { createPhrase ,updatePhrase,deletePhrase,getAllPhrases, getPhraseDetails} from "../controller/phrases";
 import { getTopTenMostPointsDiscordUsers, mostPointedPhrase, mostUsedPhrase } from "../controller/getGraphs";
 import { getApproverNotifications, getNotifications, updateNotification } from "../controller/notifications";
+import { getAllWordPhrases } from "../controller/wordPhrases";
 const router = express.Router();
 
 router.post("/api/register", register);
@@ -39,5 +40,9 @@ router.get("/api/graphs/phrase-points", mostPointedPhrase);
 router.get("/api/notifications/approver", getApproverNotifications);
 router.get("/api/notifications/user", getNotifications);
 router.post("/api/notifications/update", updateNotification);
+
+//Wordpharses
+router.get("/api/wordphrases/all", getAllWordPhrases);
+
 
 export default router;
