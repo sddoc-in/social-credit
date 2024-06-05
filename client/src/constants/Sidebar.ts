@@ -39,6 +39,13 @@ export const SidebarData = [
     Element: PanelUser,
   },
   {
+    title:"Wordpharses",
+    path:"/dashboard/wordphrases",
+    shortPath:"/wordphrases",
+    Icon:GoProjectTemplate,
+    Element: Wordpharses,
+  },
+  {
     title: "Phrases",
     path: "/dashboard/phrases",
     shortPath: "/phrases",
@@ -58,13 +65,6 @@ export const SidebarData = [
     shortPath: "/logout",
     Icon: CiLogout,
     Element: Logout,
-  },
-  {
-    title:"Wordpharses",
-    path:"/dashboard/wordphrases",
-    shortPath:"/wordphrases",
-    Icon:GoProjectTemplate,
-    Element: Wordpharses,
   }
 ];
 
