@@ -71,12 +71,8 @@ export default function DiscordUserComponent() {
 
   return (
     <>
-<<<<<<< HEAD
     {load && <Loading />}
       <h1 className="font-black text-3xl text-start text-black ">
-=======
-    <h1 className={"font-black text-3xl text-start "+headingTheme}>
->>>>>>> d7795ac219f39910ea576e2a78137131ba6ab739
         Discord User
       </h1>
       <InputSearch

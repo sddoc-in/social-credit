@@ -12,6 +12,7 @@ import ViewPhraseDetails from "../components/dashboard/phrases/ViewPhraseDetails
 import UserDetails from "../components/dashboard/discord-user/UserDetails";
 import Notifications from "../pages/Notifications";
 import Logout from "../pages/Logout";
+import WhiteListed from "../components/dashboard/whiteListed-user/WhiteListed";
 
 export const SidebarData = [
   {
@@ -35,6 +36,13 @@ export const SidebarData = [
     shortPath: "/panel",
     Icon: MdOutlineAccountTree,
     Element: PanelUser,
+  },
+  {
+    title:"WhiteListed",
+    path:"/dashboard/whiteListed",
+    shortPath:"/whiteListed",
+    Icon:GoProjectTemplate,
+    Element: WhiteListed,
   },
   {
     title: "Phrases",
