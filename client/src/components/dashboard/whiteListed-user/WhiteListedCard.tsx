@@ -2,10 +2,10 @@ import React from "react";
 import { FaStar, FaRegEye } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteForever } from "react-icons/md";
-import Delete from "../../reusable/Delete";
 import { AppContext } from "../../../context/Context";
 import getAllWhiteLitedInterface from "../../../interface/getAllWhiteLited";
 import UpdateWhitelistedPopup from "./UpdateWhiteListed";
+import DeleteWhitelistedPopup from "./DeleteUser";
 
 export default function WhiteListedCard(props: { data: getAllWhiteLitedInterface }) {
   const { theme } = React.useContext(AppContext);
@@ -45,12 +45,10 @@ export default function WhiteListedCard(props: { data: getAllWhiteLitedInterface
           </div>
         </div>
       </section>
-      <Delete
+      <DeleteWhitelistedPopup
         isOpen={open}
         onClose={() => setOpen(false)}
         data={props.data}
-        onDelete={deletePhrase}
-        type="white-listed-user"
       />
       <UpdateWhitelistedPopup
         isOpen={edit}

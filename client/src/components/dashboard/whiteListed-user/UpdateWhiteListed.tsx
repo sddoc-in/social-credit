@@ -1,14 +1,13 @@
 import React from "react";
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, Button, ModalCloseButton } from "@chakra-ui/react";
-import { FaStar } from "react-icons/fa";
 import { AppContext } from "../../../context/Context";
 import axios from "axios";
 import { API_URL } from "../../../constants/data";
 import getAllWhiteLitedInterface from "../../../interface/getAllWhiteLited";
-import InputName from "../../input/InputName"; // assuming you have a reusable InputName component
-import InputSelect from "../../input/InputSelect"; // assuming you have a reusable InputSelect component
-import UserErrorInterface from "../../../interface/Error"; // assuming similar error interface
-import validateUser from "../../../functions/validateUserSignup"; // assuming similar validation function
+import InputName from "../../input/InputName";
+import InputSelect from "../../input/InputSelect";
+import UserErrorInterface from "../../../interface/Error";
+import validateUser from "../../../functions/validateUserSignup";
 
 interface Props {
   data: getAllWhiteLitedInterface;

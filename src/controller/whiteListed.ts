@@ -84,7 +84,7 @@ export async function updateWhiteListed(req: Request, res: Response) {
 export async function deleteWhiteListed(req: Request, res: Response) {
   const access_token = req.query.access_token as string;
   const session = req.query.session as string;
-  const uuid = req.body.uuid;
+  const uuid = req.query.uuid as string;
 
   try {
     
