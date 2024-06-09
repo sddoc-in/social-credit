@@ -1,17 +1,18 @@
 import React from "react";
 import { FaStar, FaRegEye } from "react-icons/fa";
 import { CiEdit } from "react-icons/ci";
+import { MdDeleteForever } from "react-icons/md";
 import Delete from "../../reusable/Delete";
 import { AppContext } from "../../../context/Context";
 import getAllWhiteLitedInterface from "../../../interface/getAllWhiteLited";
+import UpdateWhitelistedPopup from "./UpdateWhiteListed";
 
 export default function WhiteListedCard(props: { data: getAllWhiteLitedInterface }) {
   const { theme } = React.useContext(AppContext);
-
-  let boxTheme = theme === 'light' ? "bg-transparent" : "bg-[#002F53] text-white";
-
   const [open, setOpen] = React.useState(false);
   const [edit, setEdit] = React.useState(false);
+
+  let boxTheme = theme === 'light' ? "bg-transparent" : "bg-[#002F53] text-white";
 
   function deletePhrase(data: getAllWhiteLitedInterface) {
     console.log(data);
@@ -38,11 +39,9 @@ export default function WhiteListedCard(props: { data: getAllWhiteLitedInterface
             <p className="text-sm text-gray-500">UUID: {props.data.uuid}</p>
           </div>
           <div className="flex justify-evenly items-center mt-4">
-              <FaRegEye className="text-2xl mt-1.5" />
-            <CiEdit
-              onClick={() => setEdit(true)}
-              className="text-2xl mt-1.5 cursor-pointer"
-            />
+            <FaRegEye className="text-2xl mt-1.5" />
+            <CiEdit onClick={() => setEdit(true)} className="text-2xl mt-1.5 cursor-pointer" />
+            <MdDeleteForever onClick={() => setOpen(true)} className="text-2xl mt-1.5 text-rose-500 cursor-pointer" />
           </div>
         </div>
       </section>
@@ -53,11 +52,11 @@ export default function WhiteListedCard(props: { data: getAllWhiteLitedInterface
         onDelete={deletePhrase}
         type="white-listed-user"
       />
-      {/* <UpdateUserPopup
+      <UpdateWhitelistedPopup
         isOpen={edit}
         onClose={() => setEdit(false)}
         data={props.data}
-      /> */}
+      />
     </>
   );
 }

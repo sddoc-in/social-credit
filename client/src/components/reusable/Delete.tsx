@@ -47,8 +47,8 @@ export default function Delete(props: Props) {
                 : props.type === "discord-user"
                 ? props.data.username
                 : props.type === "panel-user"
-                ? props.data.name
-                : ""}
+                ? props.data.username
+                : "discord-user"}
               ?{" "}
             </p>
           </ModalBody>

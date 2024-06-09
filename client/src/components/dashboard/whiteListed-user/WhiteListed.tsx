@@ -23,7 +23,7 @@ export default function WhiteListed() {
         access_token: currentUser.access_token,
       });
 
-      const response = await axios.get(`${API_URL}/whiteListed?${params}`);
+      const response = await axios.get(`${API_URL}/whiteListed/all?${params}`);
       const responseData = response.data;
       if (responseData.message) {
         alert(responseData.message);
@@ -49,7 +49,7 @@ export default function WhiteListed() {
           <h1 className="text-2xl font-semibold mb-4">WhiteListed Users</h1>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {data.map((whiteListed: getAllWhiteLitedInterface) => (
-              <WhiteListedCard key={whiteListed.uuid} data={whiteListed} />  // Use WhiteListedCard component here
+              <WhiteListedCard key={whiteListed.uuid} data={whiteListed} />  
             ))}
           </div>
         </div>
